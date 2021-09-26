@@ -1,0 +1,45 @@
+{
+  "name": "nodejs_base_project",
+  "version": "1.0.0",
+  "description": "This is a base project for upcoming nodejs projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo will be created soon",
+    "coverage": "echo will be created soon",
+    "dev": "cross-env NODE_ENV=dev nodemon",
+    "start": "cross-env NODE_ENV=prod node index.js",
+    "lint": "eslint {src,test,config}/**/*.js",
+    "lint-fix": "eslint --fix {src,test,config}/**/*.js",
+    "husky": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DPechetti/nodejs_base_project.git"
+  },
+  "keywords": [],
+  "authors": [
+    "Donovan Pechetti <dovi_pf@hotmail.com>"
+  ],
+  "dependencies": {
+    "awilix": "^5.0.1",
+    "awilix-express": "^4.0.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "nocache": "^3.0.1",
+    "pino": "^6.13.3",
+    "pino-pretty": "^7.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "husky": "^7.0.2",
+    "nodemon": "^2.0.13",
+    "prettier": "2.4.1"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DPechetti/nodejs_base_project/issues"
+  },
+  "homepage": "https://github.com/DPechetti/nodejs_base_project#readme"
+}
