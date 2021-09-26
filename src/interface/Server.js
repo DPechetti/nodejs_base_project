@@ -19,7 +19,7 @@ module.exports = ({ environment, router, logger, container }) => ({
     const { port } = environment;
 
     server.listen(port, () => {
-      logger.info(`Listening at port ${port}`);
+      logger.info(`Server running at port ${port}`);
     });
   }
 });
