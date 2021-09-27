@@ -4,6 +4,9 @@ const server = require('./interface/Server');
 const router = require('./interface/Router');
 const logger = require('./infra/logging/logger');
 
+const errorSerializer = require('./shared/ErrorSerializer');
+const errorMiddleware = require('./interface/middlewares/ErrorMiddleware');
+
 const container = createContainer({
   injectionMode: InjectionMode.PROXY
 });
@@ -11,11 +14,13 @@ const container = createContainer({
 module.exports = {
   configureContainer: environment => {
     container.register({
-      server: asFunction(server).singleton(),
-      router: asFunction(router),
       logger: asValue(logger),
-      environment: asValue(environment),
+      router: asFunction(router),
       container: asValue(container),
+      environment: asValue(environment),
+      server: asFunction(server).singleton(),
+      errorSerializer: asValue(errorSerializer),
+      errorMiddleware: asFunction(errorMiddleware)
     });
 
     return container;
