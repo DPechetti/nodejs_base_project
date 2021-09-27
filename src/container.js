@@ -7,6 +7,8 @@ const logger = require('./infra/logging/logger');
 const errorSerializer = require('./shared/ErrorSerializer');
 const errorMiddleware = require('./interface/middlewares/ErrorMiddleware');
 
+const notFoundMiddleware = require('./interface/middlewares/NotFoundMiddleware');
+
 const container = createContainer({
   injectionMode: InjectionMode.PROXY
 });
@@ -20,7 +22,8 @@ module.exports = {
       environment: asValue(environment),
       server: asFunction(server).singleton(),
       errorSerializer: asValue(errorSerializer),
-      errorMiddleware: asFunction(errorMiddleware)
+      errorMiddleware: asFunction(errorMiddleware),
+      notFoundMiddleware: asFunction(notFoundMiddleware)
     });
 
     return container;
