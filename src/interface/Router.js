@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 module.exports = ({
   notFoundMiddleware,
-  httpErrorMiddleware,
+  errorMiddleware,
   routerRegister,
   batatinhaRoutes
 }) => {
@@ -15,7 +15,7 @@ module.exports = ({
     .use(bodyParser.json())
     .use('/api/batatinha', routerRegister.register(batatinhaRoutes))
     .use(notFoundMiddleware)
-    .use(httpErrorMiddleware);
+    .use(errorMiddleware);
 
   return apiRouter;
 };
