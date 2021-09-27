@@ -8,6 +8,7 @@ const errorSerializer = require('./shared/ErrorSerializer');
 const errorMiddleware = require('./interface/middlewares/ErrorMiddleware');
 
 const notFoundMiddleware = require('./interface/middlewares/NotFoundMiddleware');
+const validatorMiddleware = require('./interface/middlewares/ValidatorMiddleware');
 
 const container = createContainer({
   injectionMode: InjectionMode.PROXY
@@ -23,7 +24,8 @@ module.exports = {
       server: asFunction(server).singleton(),
       errorSerializer: asValue(errorSerializer),
       errorMiddleware: asFunction(errorMiddleware),
-      notFoundMiddleware: asFunction(notFoundMiddleware)
+      notFoundMiddleware: asFunction(notFoundMiddleware),
+      validatorMiddleware: asFunction(validatorMiddleware)
     });
 
     return container;
