@@ -12,6 +12,8 @@ const validatorMiddleware = require('./interface/middlewares/ValidatorMiddleware
 
 const routerRegister = require('./interface/presentation/routerRegister');
 
+const batatinhaRoutes = require('./interface/presentation/batatinha/BatatinhaRoutes');
+
 const container = createContainer({
   injectionMode: InjectionMode.PROXY
 });
@@ -27,6 +29,7 @@ module.exports = {
       errorSerializer: asValue(errorSerializer),
       routerRegister: asFunction(routerRegister),
       errorMiddleware: asFunction(errorMiddleware),
+      batatinhaRoutes: asFunction(batatinhaRoutes),
       notFoundMiddleware: asFunction(notFoundMiddleware),
       validatorMiddleware: asFunction(validatorMiddleware)
     });
