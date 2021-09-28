@@ -9,7 +9,7 @@ module.exports = ({ validatorMiddleware }) => ({
 
       const schemaValidations = [validatorMiddleware.validateContract(schemaValidation)];
 
-      router[httpMethod](routePath, ...schemaValidations, handler());
+      router[httpMethod](routePath, ...schemaValidations, handler);
     });
 
     return router;
