@@ -13,7 +13,7 @@ module.exports = ({
   apiRouter
     .use(cors())
     .use(bodyParser.json())
-    .use('/api/batatinha', routerRegister.register(batatinhaRoutes))
+    .use('/api/batatinha', routerRegister.execute(batatinhaRoutes))
     .use(notFoundMiddleware)
     .use(errorMiddleware);
 
