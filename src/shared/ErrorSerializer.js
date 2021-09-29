@@ -1,2 +1,2 @@
-module.exports = ({ code, message, details = [] }) =>
-  ({ code, message, details });
+module.exports = ({ statusCode, code, message, details = [] }) =>
+  ({ code: code || statusCode, message, details });
