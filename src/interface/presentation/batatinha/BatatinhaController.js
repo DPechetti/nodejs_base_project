@@ -1,5 +1,9 @@
 module.exports = () => ({
-  createBatatinha: ({ headers, body, res }) => {
-    return res.status(200).send({ ...headers, ...body });
+  createBatatinha: async ({ headers, body, res, container }) => {
+    const { createBatatinhaOperation } = container.cradle;
+
+    const createdBatatinha = await createBatatinhaOperation.execute({ body, headers });
+
+    return res.status(201).send(createdBatatinha);
   }
 });

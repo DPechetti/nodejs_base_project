@@ -16,6 +16,8 @@ const batatinhaRoutes = require('./interface/presentation/batatinha/BatatinhaRou
 const batatinhaSchema = require('./interface/presentation/batatinha/BatatinhaSchema');
 const batatinhaController = require('./interface/presentation/batatinha/BatatinhaController');
 
+const createBatatinhaOperation = require('./app/operations/CreateBatatinhaOperation');
+
 const container = createContainer({
   injectionMode: InjectionMode.PROXY
 });
@@ -35,7 +37,8 @@ module.exports = {
       batatinhaSchema: asFunction(batatinhaSchema),
       notFoundMiddleware: asFunction(notFoundMiddleware),
       batatinhaController: asFunction(batatinhaController),
-      validatorMiddleware: asFunction(validatorMiddleware)
+      validatorMiddleware: asFunction(validatorMiddleware),
+      createBatatinhaOperation: asFunction(createBatatinhaOperation)
     });
 
     return container;
