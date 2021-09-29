@@ -18,6 +18,8 @@ const batatinhaController = require('./interface/presentation/batatinha/Batatinh
 const batatinhaSerializer = require('./interface/presentation/batatinha/BatatinhaSerializer');
 
 const createBatatinhaOperation = require('./app/operations/CreateBatatinhaOperation');
+const createBatatinhaService = require('./app/services/CreateBatatinhaService');
+
 
 const container = createContainer({
   injectionMode: InjectionMode.PROXY
@@ -32,7 +34,7 @@ module.exports = {
       environment: asValue(environment),
       server: asFunction(server).singleton(),
       errorSerializer: asValue(errorSerializer),
-      routerRegister: asFunction(routerRegister),
+      routerRegister: asFunction(routerRegister).singleton(),
       errorMiddleware: asFunction(errorMiddleware),
       batatinhaRoutes: asFunction(batatinhaRoutes),
       batatinhaSchema: asFunction(batatinhaSchema),
@@ -40,6 +42,7 @@ module.exports = {
       validatorMiddleware: asFunction(validatorMiddleware),
       batatinhaController: asFunction(batatinhaController),
       batatinhaSerializer: asFunction(batatinhaSerializer),
+      createBatatinhaService: asFunction(createBatatinhaService),
       createBatatinhaOperation: asFunction(createBatatinhaOperation)
     });
 

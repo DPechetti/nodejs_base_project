@@ -1,3 +1,3 @@
-module.exports = () => ({
-  execute: async batatinha => batatinha
+module.exports = ({ createBatatinhaService }) => ({
+  execute: async batatinha => await createBatatinhaService.execute(batatinha)
 });
