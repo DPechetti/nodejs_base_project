@@ -15,6 +15,7 @@ const routerRegister = require('./interface/presentation/routerRegister');
 const batatinhaRoutes = require('./interface/presentation/batatinha/BatatinhaRoutes');
 const batatinhaSchema = require('./interface/presentation/batatinha/BatatinhaSchema');
 const batatinhaController = require('./interface/presentation/batatinha/BatatinhaController');
+const batatinhaSerializer = require('./interface/presentation/batatinha/BatatinhaSerializer');
 
 const createBatatinhaOperation = require('./app/operations/CreateBatatinhaOperation');
 
@@ -36,8 +37,9 @@ module.exports = {
       batatinhaRoutes: asFunction(batatinhaRoutes),
       batatinhaSchema: asFunction(batatinhaSchema),
       notFoundMiddleware: asFunction(notFoundMiddleware),
-      batatinhaController: asFunction(batatinhaController),
       validatorMiddleware: asFunction(validatorMiddleware),
+      batatinhaController: asFunction(batatinhaController),
+      batatinhaSerializer: asFunction(batatinhaSerializer),
       createBatatinhaOperation: asFunction(createBatatinhaOperation)
     });
 
