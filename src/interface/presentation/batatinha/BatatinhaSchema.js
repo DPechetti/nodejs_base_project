@@ -9,8 +9,8 @@ module.exports = () => ({
 
   createBatatinha: {
     body: joi.object({
-      batatinha_id: joi.string().guid({ version: 'uuidv4' }).required(),
       batatinha_name: joi.string().required(),
+      batatinha_email: joi.string().email().required()
     })
   }
 });

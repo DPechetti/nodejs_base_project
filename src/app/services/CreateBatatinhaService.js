@@ -1,3 +1,9 @@
+const batatinhaDomain = require('../../domain/batatinha/Batatinha');
+
 module.exports = () => ({
-  execute: data => data
+  execute: batatinhaRequest => {
+    const batatinha = new batatinhaDomain(batatinhaRequest);
+
+    return batatinha;
+  }
 });
