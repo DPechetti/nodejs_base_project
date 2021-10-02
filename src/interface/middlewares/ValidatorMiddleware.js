@@ -8,9 +8,7 @@ module.exports = () => ({
       Object.keys(validation).forEach(validationKey => {
         const { error, value } = validation[validationKey].validate(req[validationKey] || {}, schemaOptions);
 
-        if (error) {
-          throw new ContractException(error);
-        }
+        if (error) throw new ContractException(error);
 
         req[validationKey] = value;
       });
