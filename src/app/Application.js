@@ -13,8 +13,9 @@ module.exports = {
   },
 
   start: async () => {
-    const { server } = container.cradle;
+    const { providerConnection, server } = container.cradle;
 
+    await providerConnection.connect();
     await server.createServer();
     await server.start();
   }
