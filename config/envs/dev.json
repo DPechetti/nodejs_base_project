@@ -1,3 +1,23 @@
 {
-  "port": 3333
+  "web": {
+    "host": "localhost",
+    "port": 3333
+  },
+  "db": {
+    "dialect": "mongodb",
+    "username": "batatinha",
+    "password": "batatinha",
+    "host": "127.0.0.1",
+    "port": "27017",
+    "databaseName": "db-dev-batatinha",
+    "options": {
+      "authSource": "admin"
+    },
+    "collections": {
+      "batatinha": {
+        "name": "batatinha",
+        "version": "1.0"
+      }
+    }
+  }
 }
