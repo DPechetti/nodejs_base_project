@@ -1,4 +1,5 @@
 module.exports = {
   NotFoundException: require('./NotFoundException'),
-  ContractException: require('./ContractException')
+  ContractException: require('./ContractException'),
+  OperationException: require('./OperationException')
 };
