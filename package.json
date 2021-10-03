@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo will be created soon",
     "coverage": "echo will be created soon",
-    "dev": "cross-env NODE_ENV=dev nodemon",
+    "dev": "cross-env NODE_ENV=dev nodemon --trace-warnings",
     "start": "cross-env NODE_ENV=prod node index.js",
     "lint": "eslint {src,test,config}/**/*.js",
     "lint-fix": "eslint --fix {src,test,config}/**/*.js",
@@ -29,6 +29,7 @@
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "joi": "^17.4.2",
+    "mongoose": "^6.0.8",
     "nocache": "^3.0.1",
     "pino": "^6.13.3",
     "pino-pretty": "^7.0.1",
