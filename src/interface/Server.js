@@ -16,7 +16,7 @@ module.exports = ({ environment, router, logger, container }) => ({
   },
 
   start: async () => {
-    const { port } = environment;
+    const { web: { port } } = environment;
 
     server.listen(port, () => {
       logger.info(`Server running at port ${port}`);

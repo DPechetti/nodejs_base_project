@@ -9,5 +9,10 @@ module.exports = Enum({
   NOT_FOUND: {
     defaultErrorCode: '404',
     defaultErrorMessage: 'Not Found'
+  },
+
+  OPERATION: {
+    defaultErrorCode: '500',
+    defaultErrorMessage: 'Internal Server Error'
   }
 });

@@ -1,4 +1,4 @@
-const { createContainer, InjectionMode, asFunction, asValue } = require('awilix');
+const { createContainer, InjectionMode, asFunction, asValue, asClass } = require('awilix');
 
 const server = require('./interface/Server');
 const router = require('./interface/Router');
@@ -17,6 +17,11 @@ const batatinhaSchema = require('./interface/presentation/batatinha/BatatinhaSch
 const batatinhaController = require('./interface/presentation/batatinha/BatatinhaController');
 const batatinhaSerializer = require('./interface/presentation/batatinha/BatatinhaSerializer');
 
+const providerConnection = require('./infra/database');
+
+const batatinhaModel = require('./infra/database/models/batatinha/BatatinhaModel');
+const batatinhaRepository = require('./infra/database/repository/batatinha/BatatinhaRepository');
+
 const createBatatinhaOperation = require('./app/operations/CreateBatatinhaOperation');
 const createBatatinhaService = require('./app/services/CreateBatatinhaService');
 
@@ -34,15 +39,18 @@ module.exports = {
       environment: asValue(environment),
       server: asFunction(server).singleton(),
       errorSerializer: asValue(errorSerializer),
-      routerRegister: asFunction(routerRegister).singleton(),
       errorMiddleware: asFunction(errorMiddleware),
       batatinhaRoutes: asFunction(batatinhaRoutes),
       batatinhaSchema: asFunction(batatinhaSchema),
+      batatinhaRepository: asClass(batatinhaRepository),
       notFoundMiddleware: asFunction(notFoundMiddleware),
+      batatinhaModel: asClass(batatinhaModel).singleton(),
       validatorMiddleware: asFunction(validatorMiddleware),
       batatinhaController: asFunction(batatinhaController),
       batatinhaSerializer: asFunction(batatinhaSerializer),
+      routerRegister: asFunction(routerRegister).singleton(),
       createBatatinhaService: asFunction(createBatatinhaService),
+      providerConnection: asClass(providerConnection).singleton(),
       createBatatinhaOperation: asFunction(createBatatinhaOperation)
     });
 
