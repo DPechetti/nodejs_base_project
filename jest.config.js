@@ -4,7 +4,8 @@ module.exports = async () => {
     clearMocks: true,
     collectCoverageFrom: [
       '<rootDir>/src/**/*.js',
-      '<rootDir>/config/**/*.js',
+      '!<rootDir>/src/container.js',
+      '!<rootDir>/src/app/Application.js',
     ],
     coverageDirectory: 'coverage',
     coverageThreshold: {
