@@ -5,6 +5,7 @@ module.exports = async () => {
     collectCoverageFrom: [
       '<rootDir>/src/**/*.js',
       '!<rootDir>/src/container.js',
+      '!<rootDir>/src/app/Application.js',
     ],
     coverageDirectory: 'coverage',
     coverageThreshold: {
