@@ -12,6 +12,7 @@ module.exports = qtd => {
 };
 
 const generateBatatinhaPayload = () => ({
+  batatinha_header: uuidV4(),
   batatinha_id: uuidV4(),
   batatinha_name: chance.name(),
   batatinha_email: chance.email()
