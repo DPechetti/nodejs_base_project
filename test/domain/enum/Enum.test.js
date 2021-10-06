@@ -10,7 +10,8 @@ describe('Enum', () => {
     const enumKeys = myEnum.keys();
 
     expect(enumKeys).toHaveLength(2);
-    expect(enumKeys).toContain(['SOME_VALUE', 'ANOTHER_VALUE']);
+    expect(enumKeys).toContain('SOME_VALUE');
+    expect(enumKeys).toContain('ANOTHER_VALUE');
   });
 
   test('Should return enum values successfully', async () => {
@@ -22,6 +23,7 @@ describe('Enum', () => {
     const enumValues = myEnum.values();
 
     expect(enumValues).toHaveLength(2);
-    expect(enumValues).toContain(['someValue', 'anotherValue']);
+    expect(enumValues).toContain('someValue');
+    expect(enumValues).toContain('anotherValue');
   });
 });
