@@ -7,7 +7,8 @@ describe('CreateBatatinhaService', () => {
 
     const batatinhaDomainResponse = new BatatinhaDomain(batatinha);
 
-    expect(batatinhaDomainResponse).toStrictEqual(batatinha);
+    expect(batatinhaDomainResponse).toBeInstanceOf(BatatinhaDomain);
+    expect(batatinhaDomainResponse).toEqual(batatinha);
   });
 
   test('Should call batatinha domain, batatinha repository and return created batatinha without batatinha_id', async () => {
