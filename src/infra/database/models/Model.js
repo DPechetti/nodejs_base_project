@@ -8,7 +8,7 @@ module.exports = class Model {
     this.collectionName = collectionName;
     this.indexes = indexes;
 
-    this.validateParams();
+    this._validateParams();
 
     const connection = providerConnection.connection;
 
@@ -21,7 +21,7 @@ module.exports = class Model {
     return connection.model(collectionName, schema);
   }
 
-  validateParams() {
+  _validateParams() {
     if (!this.collectionName) {
       const errorMessage = 'Missing collection name';
       this.logger.error(errorMessage);
