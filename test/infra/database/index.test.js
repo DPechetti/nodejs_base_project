@@ -23,6 +23,9 @@ describe('ProviderConnection', () => {
       };
 
       providerConnection = new ProviderConnection({ environment, logger });
+      providerConnection.mongoose.createConnection = jest.fn(() => Promise.resolve({}));
+      providerConnection._checkConnection = jest.fn();
+
     });
 
     test('Should create connection successfully', async () => {
