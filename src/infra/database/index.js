@@ -14,7 +14,7 @@ module.exports = class ProviderConnection {
       return this.connection;
 
     try {
-      const { uri, options } = await this._configureUri(this.environment.db, false);
+      const { uri, options } = await this._configureUri(this.environment.db);
 
       this.connection = await this.mongoose.createConnection(uri, options);
 

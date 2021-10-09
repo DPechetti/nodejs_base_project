@@ -1,4 +1,4 @@
-const Model = require('../Model');
+const Model = require('../');
 const batatinhaSchema = require('./BatatinhaSchema');
 
 module.exports = class BatatinhaModel extends Model {
