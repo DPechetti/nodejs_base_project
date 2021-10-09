@@ -1,4 +1,4 @@
-const Model = require('../../../../../src/infra/database/models/Model');
+const Model = require('../../../../../src/infra/database/models');
 const BatatinhaModel = require('../../../../../src/infra/database/models/batatinha/BatatinhaModel');
 
 describe('BatatinhaModel', () => {

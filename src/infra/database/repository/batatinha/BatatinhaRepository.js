@@ -1,4 +1,4 @@
-const Repository = require('../Repository');
+const Repository = require('../');
 const batatinhaMapper = require('./BatatinhaMapper');
 
 module.exports = class BatatinhaRepository extends Repository {

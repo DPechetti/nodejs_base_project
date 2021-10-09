@@ -1,4 +1,4 @@
-const Model = require('../../../../src/infra/database/models/Model');
+const Model = require('../../../../src/infra/database/models');
 
 describe('Model', () => {
   test('Should validate and return a new generic model with the arguments passed', async () => {
