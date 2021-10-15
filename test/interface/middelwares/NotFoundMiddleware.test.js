@@ -2,8 +2,7 @@ const NotFoundMiddleware = require('../../../src/interface/middlewares/NotFoundM
 const { NotFoundException } = require('../../../src/infra/exception');
 jest.mock('../../../src/infra/exception/NotFoundException');
 
-describe('Error Middleware', () => {
-
+describe('NotFoundMiddleware', () => {
   test('Should return a serialized error', () => {
     try {
       NotFoundMiddleware();

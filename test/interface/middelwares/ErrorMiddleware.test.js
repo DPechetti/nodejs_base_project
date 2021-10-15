@@ -1,7 +1,7 @@
 const { OperationException } = require('../../../src/infra/exception');
 const ErrorMiddleware = require('../../../src/interface/middlewares/ErrorMiddleware');
 
-describe('Error Middleware', () => {
+describe('ErrorMiddleware', () => {
   test('Should return a serialized error', () => {
     const error = new OperationException();
     const container = {
