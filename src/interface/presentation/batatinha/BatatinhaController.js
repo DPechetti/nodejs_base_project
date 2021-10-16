@@ -1,7 +1,5 @@
-module.exports = () => ({
-  createBatatinha: async ({ headers, body, res, container }) => {
-    const { createBatatinhaOperation, batatinhaSerializer } = container.cradle;
-
+module.exports = ({ createBatatinhaOperation, batatinhaSerializer }) => ({
+  createBatatinha: async ({ headers, body, res }) => {
     const createdBatatinha = await createBatatinhaOperation.execute({ ...headers, ...body });
     const serializedBatatinha = batatinhaSerializer.serialize(createdBatatinha);
 

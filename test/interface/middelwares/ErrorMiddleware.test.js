@@ -4,21 +4,18 @@ const ErrorMiddleware = require('../../../src/interface/middlewares/ErrorMiddlew
 describe('ErrorMiddleware', () => {
   test('Should return a serialized error', () => {
     const error = new OperationException();
-    const container = {
-      cradle: {
-        logger: {
-          error: jest.fn(data => data)
-        },
-        errorSerializer: jest.fn(data => data)
-      }
+    const logger = {
+      error: jest.fn(data => data)
     };
+    const errorSerializer = jest.fn(data => data);
+
     const res = {
       status: () => ({
         send: jest.fn(data => data)
       })
     };
 
-    const errorMiddleware = ErrorMiddleware({ container });
+    const errorMiddleware = ErrorMiddleware({ logger, errorSerializer });
 
     const errorMiddlewareResponse = errorMiddleware(error, undefined, res, undefined);
 

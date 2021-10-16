@@ -9,13 +9,15 @@ module.exports = {
 
     container = configureContainer(config);
 
+    const { providerConnection } = container.cradle;
+    await providerConnection.connect();
+
     return;
   },
 
   start: async () => {
-    const { providerConnection, server } = container.cradle;
+    const { server } = container.cradle;
 
-    await providerConnection.connect();
     await server.createServer();
     await server.start();
   }
