@@ -1,6 +1,4 @@
-module.exports = ({ container }) => {
-  const { batatinhaSchema, batatinhaController } = container.cradle;
-
+module.exports = ({ batatinhaSchema, batatinhaController }) => {
   return [
     {
       httpMethod: 'post',

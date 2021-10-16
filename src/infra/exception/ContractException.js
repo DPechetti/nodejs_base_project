@@ -10,7 +10,7 @@ const {
 module.exports = class ContractException extends Exception {
   constructor(error = {}) {
     const parsedError = _formatDetails(error.details);
-    console.log('error', JSON.stringify(error));
+
     super({ details: parsedError }, { defaultErrorCode, defaultErrorMessage });
   }
 };

@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "913f6174-d685-4655-b398-d59a3290439b",
+		"name": "Batatinha CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Batatinha",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "batatinha_header",
+						"value": "{{$guid}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"batatinha_name\": \"Batatinha\",\r\n    \"batatinha_email\": \"{{$randomEmail}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}api/batatinha",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"batatinha"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

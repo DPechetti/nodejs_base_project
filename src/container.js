@@ -4,7 +4,7 @@ const server = require('./interface/Server');
 const router = require('./interface/Router');
 const logger = require('./infra/logging/logger');
 
-const errorSerializer = require('./shared/ErrorSerializer');
+const errorSerializer = require('./domain/exception/ErrorSerializer');
 const errorMiddleware = require('./interface/middlewares/ErrorMiddleware');
 
 const notFoundMiddleware = require('./interface/middlewares/NotFoundMiddleware');

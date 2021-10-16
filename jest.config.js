@@ -6,6 +6,8 @@ module.exports = async () => {
       '<rootDir>/src/**/*.js',
       '!<rootDir>/src/container.js',
       '!<rootDir>/src/app/Application.js',
+      '!<rootDir>/src/interface/Router.js',
+      '!<rootDir>/src/interface/Server.js',
     ],
     coverageDirectory: 'coverage',
     coverageThreshold: {
