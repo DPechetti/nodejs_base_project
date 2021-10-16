@@ -17,7 +17,7 @@ describe('BatatinhaSchema', () => {
         headers = BatatinhaSchema().common.headers;
       });
 
-      test('returns validated object', () => {
+      test('Should return the validated object', () => {
         const { error } = headers.validate(data);
 
         expect(error).toStrictEqual(undefined);
@@ -39,7 +39,7 @@ describe('BatatinhaSchema', () => {
         body = BatatinhaSchema().createBatatinha.body;
       });
 
-      test('returns validated object', () => {
+      test('Should return the validated object', () => {
         const { error } = body.validate(data);
 
         expect(error).toStrictEqual(undefined);
