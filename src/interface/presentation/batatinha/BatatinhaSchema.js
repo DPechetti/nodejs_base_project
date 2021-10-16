@@ -12,5 +12,11 @@ module.exports = () => ({
       batatinha_name: joi.string().min(3).max(50).required(),
       batatinha_email: joi.string().email().required()
     })
+  },
+
+  getBatatinha: {
+    params: joi.object({
+      batatinha_id: joi.string().guid({ version: 'uuidv4' }).required()
+    })
   }
 });

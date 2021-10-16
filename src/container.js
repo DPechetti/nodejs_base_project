@@ -25,6 +25,7 @@ const batatinhaRepository = require('./infra/database/repository/batatinha/Batat
 const createBatatinhaOperation = require('./app/operations/CreateBatatinhaOperation');
 const createBatatinhaService = require('./app/services/CreateBatatinhaService');
 
+const getBatatinhaOperation = require('./app/operations/GetBatatinhaOperation');
 
 const container = createContainer({
   injectionMode: InjectionMode.PROXY
@@ -49,6 +50,7 @@ module.exports = {
       batatinhaController: asFunction(batatinhaController),
       batatinhaSerializer: asFunction(batatinhaSerializer),
       routerRegister: asFunction(routerRegister).singleton(),
+      getBatatinhaOperation: asFunction(getBatatinhaOperation),
       createBatatinhaService: asFunction(createBatatinhaService),
       providerConnection: asClass(providerConnection).singleton(),
       createBatatinhaOperation: asFunction(createBatatinhaOperation)
