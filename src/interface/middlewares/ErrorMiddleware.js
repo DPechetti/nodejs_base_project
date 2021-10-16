@@ -1,7 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-module.exports = ({ container }) => (error, req, res, next) => {
-  const { logger, errorSerializer } = container.cradle;
-
+module.exports = ({ logger, errorSerializer }) => (error, req, res, next) => {
   const serializedError = errorSerializer(error);
 
   logger.error(serializedError);
