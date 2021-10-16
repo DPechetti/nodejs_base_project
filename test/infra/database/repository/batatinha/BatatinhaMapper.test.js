@@ -11,14 +11,4 @@ describe('batatinhaMapper', () => {
       expect(response).toEqual(batatinha);
     });
   });
-
-  describe('#toDatabase', () => {
-    test('Should call toDatabase method successfully', () => {
-      const batatinha = generateBatatinhaRequest();
-
-      const response = batatinhaMapper.toDatabase(batatinha);
-
-      expect(response).toEqual(batatinha);
-    });
-  });
 });

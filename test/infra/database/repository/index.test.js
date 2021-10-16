@@ -20,8 +20,6 @@ describe('Repository', () => {
 
       expect(createdBatatinha).toEqual(batatinha);
 
-      expect(repositoryMapper.toDatabase).toHaveBeenCalledTimes(1);
-      expect(repositoryMapper.toDatabase).toHaveBeenCalledWith(batatinha);
       expect(repositoryMapper.toResponse).toHaveBeenCalledTimes(1);
       expect(repositoryMapper.toResponse).toHaveBeenCalledWith(batatinha);
     });
@@ -48,8 +46,6 @@ describe('Repository', () => {
         expect(error.stack).toContain('Error: any_error');
 
         expect(repositoryMapper.toResponse).not.toHaveBeenCalled();
-        expect(repositoryMapper.toDatabase).toHaveBeenCalledTimes(1);
-        expect(repositoryMapper.toDatabase).toHaveBeenCalledWith(batatinha);
       }
     });
   });
