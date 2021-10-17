@@ -12,7 +12,7 @@ module.exports = class Repository {
 
       return this.repositoryMapper.toResponse(response);
     } catch (error) {
-      throw new OperationException(error);
+      throw new OperationException(_databaseError('An error occurred saving to database'));
     }
   }
 
@@ -25,7 +25,16 @@ module.exports = class Repository {
 
       return this.repositoryMapper.toResponse(response);
     } catch (error) {
-      throw new OperationException(error);
+      throw new OperationException(_databaseError('An error occurred while doing a get to the database'));
     }
   }
 };
+
+const _databaseError = (error_message) => ({
+  details: [
+    {
+      error_code: 'Database error',
+      error_message
+    }
+  ]
+});

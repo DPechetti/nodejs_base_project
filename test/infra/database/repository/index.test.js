@@ -40,8 +40,16 @@ describe('Repository', () => {
         expect(error).toBeInstanceOf(OperationException);
 
         expect(error.code).toStrictEqual('500');
-        expect(error.message).toStrictEqual('any_error');
-        expect(error.stack).toContain('Error: any_error');
+        expect(error.message).toStrictEqual('Internal Server Error');
+
+        expect(error).toHaveProperty('details');
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0]).toHaveProperty('error_code');
+        expect(error.details[0].error_code).toStrictEqual('Database error');
+
+        expect(error.details[0]).toHaveProperty('error_message');
+        expect(error.details[0].error_message).toStrictEqual('An error occurred saving to database');
 
         expect(repositoryMapper.toResponse).not.toHaveBeenCalled();
       }
@@ -108,8 +116,16 @@ describe('Repository', () => {
         expect(error).toBeInstanceOf(OperationException);
 
         expect(error.code).toStrictEqual('500');
-        expect(error.message).toStrictEqual('any_error');
-        expect(error.stack).toContain('Error: any_error');
+        expect(error.message).toStrictEqual('Internal Server Error');
+
+        expect(error).toHaveProperty('details');
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0]).toHaveProperty('error_code');
+        expect(error.details[0].error_code).toStrictEqual('Database error');
+
+        expect(error.details[0]).toHaveProperty('error_message');
+        expect(error.details[0].error_message).toStrictEqual('An error occurred while doing a get to the database');
 
         expect(repositoryMapper.toResponse).not.toHaveBeenCalled();
       }
