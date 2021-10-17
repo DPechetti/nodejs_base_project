@@ -2,7 +2,7 @@ const CreateBatatinhaService = require('../../../src/app/services/CreateBatatinh
 const generateBatatinhaRequest = require('../../mocks/batatinha/generateBatatinhaRequest');
 
 describe('CreateBatatinhaService', () => {
-  test('Should call batatinha domain, batatinha repository and return created batatinha', async () => {
+  test('Should call batatinha domain, call batatinha repository and return created batatinha', async () => {
     const batatinha = generateBatatinhaRequest();
 
     const batatinhaRepository = {
