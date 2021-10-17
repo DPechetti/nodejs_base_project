@@ -8,11 +8,20 @@ module.exports = class Repository {
 
   async create(entity) {
     try {
-      const model = this.repositoryModel(
-        this.repositoryMapper.toDatabase(entity)
-      );
+      const response = await this.repositoryModel(entity).save();
 
-      const response = await model.save();
+      return this.repositoryMapper.toResponse(response);
+    } catch (error) {
+      throw new OperationException(error);
+    }
+  }
+
+  async get(params) {
+    try {
+      const response = await this.repositoryModel.findOne(params);
+
+      if (!response)
+        return null;
 
       return this.repositoryMapper.toResponse(response);
     } catch (error) {
