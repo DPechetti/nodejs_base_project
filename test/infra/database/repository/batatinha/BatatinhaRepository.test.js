@@ -8,7 +8,6 @@ describe('BatatinhaRepository', () => {
 
       expect(batatinhaRepository).toHaveProperty('repositoryModel', {});
       expect(batatinhaRepository).toHaveProperty('repositoryMapper');
-      expect(batatinhaRepository.repositoryMapper).toHaveProperty('toDatabase');
       expect(batatinhaRepository.repositoryMapper).toHaveProperty('toResponse');
     });
   });
