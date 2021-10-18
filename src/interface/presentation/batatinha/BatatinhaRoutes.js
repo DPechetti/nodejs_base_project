@@ -17,6 +17,16 @@ module.exports = ({ batatinhaSchema, batatinhaController }) => {
         params: batatinhaSchema.getBatatinha.params
       },
       handler: batatinhaController.getBatatinha
+    },
+    {
+      httpMethod: 'patch',
+      routePath: '/:batatinha_id',
+      schemaValidation: {
+        headers: batatinhaSchema.common.headers,
+        params: batatinhaSchema.updateBatatinha.params,
+        body: batatinhaSchema.updateBatatinha.body
+      },
+      handler: batatinhaController.updateBatatinha
     }
   ];
 };
