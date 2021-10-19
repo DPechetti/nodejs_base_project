@@ -1,6 +1,11 @@
 const ControllerMiddleware = require('../../middlewares/ControllerMiddleware');
 
-module.exports = ({ batatinhaSerializer, createBatatinhaOperation, getBatatinhaOperation }) => ({
+module.exports = ({
+  batatinhaSerializer,
+  createBatatinhaOperation,
+  getBatatinhaOperation,
+  updateBatatinhaOperation
+}) => ({
   createBatatinha: ControllerMiddleware(async ({ headers, body, res }) => {
     const createdBatatinha = await createBatatinhaOperation.execute({ ...headers, ...body });
     const serializedBatatinha = batatinhaSerializer.serialize(createdBatatinha);
@@ -9,8 +14,15 @@ module.exports = ({ batatinhaSerializer, createBatatinhaOperation, getBatatinhaO
   }),
 
   getBatatinha: ControllerMiddleware(async ({ headers, params, res }) => {
-    const createdBatatinha = await getBatatinhaOperation.execute({ ...headers, ...params });
-    const serializedBatatinha = batatinhaSerializer.serialize(createdBatatinha);
+    const foundBatatinha = await getBatatinhaOperation.execute({ ...headers, ...params });
+    const serializedBatatinha = batatinhaSerializer.serialize(foundBatatinha);
+
+    return res.status(200).send(serializedBatatinha);
+  }),
+
+  updateBatatinha: ControllerMiddleware(async ({ headers, params, body, res }) => {
+    const updatedBatatinha = await updateBatatinhaOperation.execute({ ...headers, ...params, ...body });
+    const serializedBatatinha = batatinhaSerializer.serialize(updatedBatatinha);
 
     return res.status(200).send(serializedBatatinha);
   })

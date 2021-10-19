@@ -1,32 +1,31 @@
-const GetBatatinhaService = require('../../../src/app/services/GetBatatinhaService');
+const UpdateBatatinhaService = require('../../../src/app/services/UpdateBatatinhaService');
 const generateBatatinhaRequest = require('../../mocks/batatinha/generateBatatinhaRequest');
 
-describe('GetBatatinhaService', () => {
-  test('Should find batatinha, call batatinha repository and return batatinha', async () => {
+describe('UpdateBatatinhaService', () => {
+  test('Should update batatinha, call batatinha domain, call batatinha repository and return batatinha', async () => {
     const batatinha = generateBatatinhaRequest();
-    const { batatinha_header, batatinha_id } = batatinha;
 
     const batatinhaRepository = {
-      get: () => Promise.resolve(batatinha)
+      update: () => Promise.resolve(batatinha)
     };
 
-    const getBatatinhaService = GetBatatinhaService({ batatinhaRepository });
+    const updateBatatinhaService = UpdateBatatinhaService({ batatinhaRepository });
 
-    const foundBatatinha = await getBatatinhaService.execute({ batatinha_header, batatinha_id });
+    const foundBatatinha = await updateBatatinhaService.execute(batatinha);
 
     expect(foundBatatinha).toEqual(batatinha);
   });
 
   test('Should return batatinha not found', async () => {
     const batatinha = generateBatatinhaRequest();
-    const { batatinha_header, batatinha_id } = batatinha;
+
     const batatinhaRepository = {
-      get: () => Promise.resolve(null)
+      update: () => Promise.resolve(null)
     };
 
-    const getBatatinhaService = GetBatatinhaService({ batatinhaRepository });
+    const updateBatatinhaService = UpdateBatatinhaService({ batatinhaRepository });
     try {
-      await getBatatinhaService.execute({ batatinha_header, batatinha_id });
+      await updateBatatinhaService.execute(batatinha);
     } catch (error) {
       expect(error).toBeInstanceOf(Error);
 

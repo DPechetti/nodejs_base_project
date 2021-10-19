@@ -20,12 +20,23 @@ module.exports = class Repository {
     try {
       const response = await this.repositoryModel.findOne(params);
 
-      if (!response)
-        return null;
+      if (!response) return null;
 
       return this.repositoryMapper.toResponse(response);
     } catch (error) {
       throw new OperationException(_databaseError('An error occurred while doing a get to the database'));
+    }
+  }
+
+  async update(query, entity, options = { new: true, upsert: false }) {
+    try {
+      const response = await this.repositoryModel.findOneAndUpdate(query, entity, options);
+
+      if (!response) return null;
+
+      return this.repositoryMapper.toResponse(response);
+    } catch (error) {
+      throw new OperationException(_databaseError('An error occurred while updating in the database'));
     }
   }
 };

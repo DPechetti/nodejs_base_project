@@ -1,5 +1,4 @@
 const { NotFoundException } = require('../../infra/exception');
-const batatinhaDomain = require('../../domain/batatinha/Batatinha');
 
 module.exports = ({ batatinhaRepository }) => ({
   execute: async ({ batatinha_header, batatinha_id }) => {
@@ -10,13 +9,11 @@ module.exports = ({ batatinhaRepository }) => ({
         details: [
           {
             error_code: 'Batatinha not found',
-            error_message: 'Batatinha was not found with header informed'
+            error_message: 'Batatinha was not found with header and id informed'
           }
         ]
       });
 
-    const batatinha = new batatinhaDomain(foundBatatinha);
-
-    return batatinha;
+    return foundBatatinha;
   }
 });

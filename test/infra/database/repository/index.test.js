@@ -70,9 +70,9 @@ describe('Repository', () => {
 
       const repository = new Repository({ repositoryModel, repositoryMapper });
 
-      const createdBatatinha = await repository.get({ batatinha_header, batatinha_id });
+      const foundBatatinha = await repository.get({ batatinha_header, batatinha_id });
 
-      expect(createdBatatinha).toEqual(batatinha);
+      expect(foundBatatinha).toEqual(batatinha);
 
       expect(repositoryMapper.toResponse).toHaveBeenCalledTimes(1);
       expect(repositoryMapper.toResponse).toHaveBeenCalledWith(batatinha);
@@ -90,9 +90,9 @@ describe('Repository', () => {
 
       const repository = new Repository({ repositoryModel, repositoryMapper });
 
-      const createdBatatinha = await repository.get({ batatinha_header, batatinha_id });
+      const foundBatatinha = await repository.get({ batatinha_header, batatinha_id });
 
-      expect(createdBatatinha).toEqual(null);
+      expect(foundBatatinha).toEqual(null);
 
       expect(repositoryMapper.toResponse).not.toHaveBeenCalled();
     });
@@ -126,6 +126,82 @@ describe('Repository', () => {
 
         expect(error.details[0]).toHaveProperty('error_message');
         expect(error.details[0].error_message).toStrictEqual('An error occurred while doing a get to the database');
+
+        expect(repositoryMapper.toResponse).not.toHaveBeenCalled();
+      }
+    });
+  });
+
+  describe('#update', () => {
+    test('Should return the updated batatinha', async () => {
+      const batatinha = generateBatatinhaRequest();
+      const { batatinha_header, batatinha_id, ...entity } = batatinha;
+
+      const repositoryModel = {
+        findOneAndUpdate: () => Promise.resolve(batatinha)
+      };
+      const repositoryMapper = {
+        toResponse: jest.fn(data => data)
+      };
+
+      const repository = new Repository({ repositoryModel, repositoryMapper });
+
+      const updatedBatatinha = await repository.update({ batatinha_header, batatinha_id }, entity);
+
+      expect(updatedBatatinha).toEqual(batatinha);
+
+      expect(repositoryMapper.toResponse).toHaveBeenCalledTimes(1);
+      expect(repositoryMapper.toResponse).toHaveBeenCalledWith(batatinha);
+    });
+
+    test('Should return null when not found batatinha', async () => {
+      const { batatinha_header, batatinha_id, ...entity } = generateBatatinhaRequest();
+
+      const repositoryModel = {
+        findOneAndUpdate: () => Promise.resolve(null)
+      };
+      const repositoryMapper = {
+        toResponse: jest.fn(data => data)
+      };
+
+      const repository = new Repository({ repositoryModel, repositoryMapper });
+
+      const updatedBatatinha = await repository.update({ batatinha_header, batatinha_id }, entity);
+
+      expect(updatedBatatinha).toEqual(null);
+
+      expect(repositoryMapper.toResponse).not.toHaveBeenCalled();
+    });
+
+    test('Should return operation exception when findOneAndUpdate throw error', async () => {
+      const batatinha = generateBatatinhaRequest();
+      const { batatinha_header, batatinha_id, ...entity } = batatinha;
+
+      const repositoryModel = {
+        findOne: () => Promise.reject(new Error('any_error'))
+      };
+      const repositoryMapper = {
+        toResponse: jest.fn(data => data)
+      };
+
+      const repository = new Repository({ repositoryModel, repositoryMapper });
+
+      try {
+        await repository.update({ batatinha_header, batatinha_id }, entity);
+      } catch (error) {
+        expect(error).toBeInstanceOf(OperationException);
+
+        expect(error.code).toStrictEqual('500');
+        expect(error.message).toStrictEqual('Internal Server Error');
+
+        expect(error).toHaveProperty('details');
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0]).toHaveProperty('error_code');
+        expect(error.details[0].error_code).toStrictEqual('Database error');
+
+        expect(error.details[0]).toHaveProperty('error_message');
+        expect(error.details[0].error_message).toStrictEqual('An error occurred while updating in the database');
 
         expect(repositoryMapper.toResponse).not.toHaveBeenCalled();
       }
