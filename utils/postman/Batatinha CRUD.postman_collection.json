@@ -7,6 +7,19 @@
 	"item": [
 		{
 			"name": "Create Batatinha",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"batatinha_id\", jsonData.batatinha_id);\r",
+							"postman.setEnvironmentVariable(\"batatinha_header\", jsonData.batatinha_header);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -26,12 +39,94 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}api/batatinha",
+					"raw": "{{base_url}}/batatinha",
 					"host": [
-						"{{base_url}}api"
+						"{{base_url}}"
 					],
 					"path": [
 						"batatinha"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batatinha",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "batatinha_header",
+						"value": "{{batatinha_header}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/batatinha/:batatinha_id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"batatinha",
+						":batatinha_id"
+					],
+					"variable": [
+						{
+							"key": "batatinha_id",
+							"value": "{{batatinha_id}}",
+							"description": "\n\n\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Batatinha",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "batatinha_header",
+						"value": "{{batatinha_header}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"batatinha_name\": \"Little Potato\",\n    \"batatinha_email\": \"{{$randomEmail}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/batatinha/:batatinha_id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"batatinha",
+						":batatinha_id"
+					],
+					"variable": [
+						{
+							"key": "batatinha_id",
+							"value": "{{batatinha_id}}",
+							"description": "\n\n\n"
+						}
 					]
 				}
 			},
