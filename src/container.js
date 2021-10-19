@@ -29,7 +29,7 @@ const getBatatinhaOperation = require('./app/operations/GetBatatinhaOperation');
 const getBatatinhaService = require('./app/services/GetBatatinhaService');
 
 const updateBatatinhaOperation = require('./app/operations/UpdateBatatinhaOperation');
-const updateBatatinhaService = require('./app/services/updateBatatinhaService');
+const updateBatatinhaService = require('./app/services/UpdateBatatinhaService');
 
 const container = createContainer({
   injectionMode: InjectionMode.PROXY
