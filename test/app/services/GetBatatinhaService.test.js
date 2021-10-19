@@ -2,7 +2,7 @@ const GetBatatinhaService = require('../../../src/app/services/GetBatatinhaServi
 const generateBatatinhaRequest = require('../../mocks/batatinha/generateBatatinhaRequest');
 
 describe('GetBatatinhaService', () => {
-  test('Should find batatinha, call batatinha domain, call batatinha repository and return batatinha', async () => {
+  test('Should find batatinha, call batatinha repository and return batatinha', async () => {
     const batatinha = generateBatatinhaRequest();
     const { batatinha_header, batatinha_id } = batatinha;
 
@@ -17,7 +17,7 @@ describe('GetBatatinhaService', () => {
     expect(foundBatatinha).toEqual(batatinha);
   });
 
-  test('Should find batatinha, call batatinha domain, call batatinha repository and return batatinha', async () => {
+  test('Should return batatinha not found', async () => {
     const batatinha = generateBatatinhaRequest();
     const { batatinha_header, batatinha_id } = batatinha;
     const batatinhaRepository = {
@@ -43,7 +43,7 @@ describe('GetBatatinhaService', () => {
       expect(error.details[0].error_code).toStrictEqual('Batatinha not found');
 
       expect(error.details[0]).toHaveProperty('error_message');
-      expect(error.details[0].error_message).toStrictEqual('Batatinha was not found with header informed');
+      expect(error.details[0].error_message).toStrictEqual('Batatinha was not found with header and id informed');
     }
   });
 });
