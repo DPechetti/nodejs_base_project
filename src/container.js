@@ -28,6 +28,7 @@ const createBatatinhaService = require('./app/services/CreateBatatinhaService');
 const getBatatinhaOperation = require('./app/operations/GetBatatinhaOperation');
 const getBatatinhaService = require('./app/services/GetBatatinhaService');
 
+const updateBatatinhaOperation = require('./app/operations/UpdateBatatinhaOperation');
 
 const container = createContainer({
   injectionMode: InjectionMode.PROXY
@@ -56,6 +57,7 @@ module.exports = {
       getBatatinhaOperation: asFunction(getBatatinhaOperation),
       createBatatinhaService: asFunction(createBatatinhaService),
       providerConnection: asClass(providerConnection).singleton(),
+      updateBatatinhaOperation: asFunction(updateBatatinhaOperation),
       createBatatinhaOperation: asFunction(createBatatinhaOperation)
     });
 
