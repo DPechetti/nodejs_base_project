@@ -13,6 +13,7 @@ jobs:
       - name: Fetch
         uses: actions/checkout@master
       - name: Run coverage
+        run: yarn
         run: yarn coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
