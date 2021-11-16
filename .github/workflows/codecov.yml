@@ -1,0 +1,10 @@
+name: Example workflow for Codecov
+on: [push]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch
+        uses: actions/checkout@master
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
