@@ -131,6 +131,37 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Delete Batatinha",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "batatinha_header",
+						"value": "{{batatinha_header}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/batatinha/:batatinha_id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"batatinha",
+						":batatinha_id"
+					],
+					"variable": [
+						{
+							"key": "batatinha_id",
+							"value": "{{batatinha_id}}",
+							"description": "\n\n\n"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
