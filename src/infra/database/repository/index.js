@@ -39,6 +39,14 @@ module.exports = class Repository {
       throw new OperationException(_databaseError('An error occurred while updating in the database'));
     }
   }
+
+  async delete(params) {
+    try {
+      return await this.repositoryModel.deleteOne(params);
+    } catch (error) {
+      throw new OperationException(_databaseError('An error occurred while delete in the database'));
+    }
+  }
 };
 
 const _databaseError = (error_message) => ({

@@ -207,4 +207,50 @@ describe('Repository', () => {
       }
     });
   });
+
+  describe('#delete', () => {
+    test('Should return the deleted batatinha', async () => {
+      const batatinha = generateBatatinhaRequest();
+      const { batatinha_header, batatinha_id } = batatinha;
+
+      const repositoryModel = {
+        deleteOne: () => Promise.resolve()
+      };
+
+      const repository = new Repository({ repositoryModel });
+
+      const foundBatatinha = await repository.delete({ batatinha_header, batatinha_id });
+
+      expect(foundBatatinha).toStrictEqual(undefined);
+    });
+
+    test('Should return operation exception when deleteOne throw error', async () => {
+      const batatinha = generateBatatinhaRequest();
+      const { batatinha_header, batatinha_id } = batatinha;
+
+      const repositoryModel = {
+        deleteOne: () => Promise.reject()
+      };
+
+      const repository = new Repository({ repositoryModel });
+
+      try {
+        await repository.delete({ batatinha_header, batatinha_id });
+      } catch (error) {
+        expect(error).toBeInstanceOf(OperationException);
+
+        expect(error.code).toStrictEqual('500');
+        expect(error.message).toStrictEqual('Internal Server Error');
+
+        expect(error).toHaveProperty('details');
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0]).toHaveProperty('error_code');
+        expect(error.details[0].error_code).toStrictEqual('Database error');
+
+        expect(error.details[0]).toHaveProperty('error_message');
+        expect(error.details[0].error_message).toStrictEqual('An error occurred while delete in the database');
+      }
+    });
+  });
 });
