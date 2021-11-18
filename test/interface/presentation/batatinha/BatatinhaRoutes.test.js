@@ -6,19 +6,21 @@ describe('BatatinhaRoutes', () => {
       common: { headers: 'headers' },
       createBatatinha: { body: 'body' },
       getBatatinha: { params: 'params' },
-      updateBatatinha: { params: 'params', body: 'body' }
+      updateBatatinha: { params: 'params', body: 'body' },
+      deleteBatatinha: { params: 'params' },
     };
     const batatinhaController = {
       createBatatinha: 'createBatatinha',
       getBatatinha: 'getBatatinha',
-      updateBatatinha: 'updateBatatinha'
+      updateBatatinha: 'updateBatatinha',
+      deleteBatatinha: 'deleteBatatinha'
     };
 
     const batatinhaRoutes = BatatinhaRoutes({ batatinhaSchema, batatinhaController });
 
     expect(batatinhaRoutes).toBeInstanceOf(Array);
 
-    const [createBatatinha, getBatatinha, updateBatatinha] = batatinhaRoutes;
+    const [createBatatinha, getBatatinha, updateBatatinha, deleteBatatinha] = batatinhaRoutes;
 
     expect(createBatatinha.httpMethod).toStrictEqual('post');
     expect(createBatatinha.routePath).toStrictEqual('/');
@@ -44,5 +46,12 @@ describe('BatatinhaRoutes', () => {
       body: batatinhaSchema.updateBatatinha.body
     });
     expect(updateBatatinha.handler).toStrictEqual(batatinhaController.updateBatatinha);
+
+    expect(deleteBatatinha.httpMethod).toStrictEqual('delete');
+    expect(deleteBatatinha.routePath).toStrictEqual('/:batatinha_id');
+    expect(deleteBatatinha.schemaValidation).toStrictEqual({
+      headers: batatinhaSchema.common.headers,
+      params: batatinhaSchema.deleteBatatinha.params
+    });
   });
 });

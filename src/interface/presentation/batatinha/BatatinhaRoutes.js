@@ -27,6 +27,15 @@ module.exports = ({ batatinhaSchema, batatinhaController }) => {
         body: batatinhaSchema.updateBatatinha.body
       },
       handler: batatinhaController.updateBatatinha
+    },
+    {
+      httpMethod: 'delete',
+      routePath: '/:batatinha_id',
+      schemaValidation: {
+        headers: batatinhaSchema.common.headers,
+        params: batatinhaSchema.deleteBatatinha.params,
+      },
+      handler: batatinhaController.deleteBatatinha
     }
   ];
 };
