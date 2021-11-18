@@ -107,4 +107,37 @@ describe('BatatinhaController', () => {
       expect(res.status).toHaveBeenCalledWith(200);
     });
   });
+
+  describe('#deleteBatatinha', () => {
+    let batatinha, batatinhaController, headers, params, res, deleteBatatinhaOperation;
+
+    beforeEach(() => {
+      batatinha = generateBatatinhaRequest();
+      const { batatinha_header, batatinha_id } = batatinha;
+
+      deleteBatatinhaOperation = { execute: jest.fn(() => Promise.resolve(batatinha)) };
+      headers = { batatinha_header };
+      params = { batatinha_id };
+      res = {
+        status: jest.fn(() => ({ send: () => batatinha }))
+      };
+
+      batatinhaController = BatatinhaController({ deleteBatatinhaOperation });
+    });
+
+    test('getBatatinha', async () => {
+      const foundBatatinha = await batatinhaController.deleteBatatinha({ headers, params, res });
+
+      expect(foundBatatinha).toEqual(batatinha);
+
+      expect(deleteBatatinhaOperation.execute).toHaveBeenCalledTimes(1);
+      expect(deleteBatatinhaOperation.execute).toHaveBeenCalledWith({
+        batatinha_header: batatinha.batatinha_header,
+        batatinha_id: batatinha.batatinha_id
+      });
+
+      expect(res.status).toHaveBeenCalledTimes(1);
+      expect(res.status).toHaveBeenCalledWith(204);
+    });
+  });
 });
