@@ -432,4 +432,67 @@ describe('BatatinhaSchema', () => {
       });
     });
   });
+
+  describe('#deleteBatatinha', () => {
+    describe('#params', () => {
+      let data, params;
+
+      beforeEach(() => {
+        const { batatinha_id } = batatinha;
+        data = {
+          batatinha_id
+        };
+
+        params = BatatinhaSchema().deleteBatatinha.params;
+      });
+
+      test('Should return the validated object', () => {
+        const { error } = params.validate(data);
+
+        expect(error).toStrictEqual(undefined);
+      });
+
+      test('Should return error whe batatinha id is not passed', () => {
+        const { error } = params.validate({});
+
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toStrictEqual('"batatinha_id" is required');
+
+        expect(error.details).toBeInstanceOf(Array);
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0].path).toBeInstanceOf(Array);
+        expect(error.details[0].path[0]).toStrictEqual('batatinha_id');
+        expect(error.details[0].message).toStrictEqual('"batatinha_id" is required');
+      });
+
+      test('Should return error whe batatinha id is empty', () => {
+        const { error } = params.validate({ batatinha_id: '' });
+
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toStrictEqual('"batatinha_id" is not allowed to be empty');
+
+        expect(error.details).toBeInstanceOf(Array);
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0].path).toBeInstanceOf(Array);
+        expect(error.details[0].path[0]).toStrictEqual('batatinha_id');
+        expect(error.details[0].message).toStrictEqual('"batatinha_id" is not allowed to be empty');
+      });
+
+      test('Should return error whe batatinha id is invalid', () => {
+        const { error } = params.validate({ batatinha_id: 'invalid_guid' });
+
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toStrictEqual('"batatinha_id" must be a valid GUID');
+
+        expect(error.details).toBeInstanceOf(Array);
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0].path).toBeInstanceOf(Array);
+        expect(error.details[0].path[0]).toStrictEqual('batatinha_id');
+        expect(error.details[0].message).toStrictEqual('"batatinha_id" must be a valid GUID');
+      });
+    });
+  });
 });
