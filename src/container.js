@@ -28,8 +28,14 @@ const createBatatinhaService = require('./app/services/CreateBatatinhaService');
 const getBatatinhaOperation = require('./app/operations/GetBatatinhaOperation');
 const getBatatinhaService = require('./app/services/GetBatatinhaService');
 
+const listBatatinhaOperation = require('./app/operations/ListBatatinhaOperation');
+const listBatatinhaService = require('./app/services/ListBatatinhaService');
+
 const updateBatatinhaOperation = require('./app/operations/UpdateBatatinhaOperation');
 const updateBatatinhaService = require('./app/services/UpdateBatatinhaService');
+
+const deleteBatatinhaOperation = require('./app/operations/DeleteBatatinhaOperation');
+const deleteBatatinhaService = require('./app/services/DeleteBatatinhaService');
 
 const container = createContainer({
   injectionMode: InjectionMode.PROXY
@@ -54,13 +60,17 @@ module.exports = {
       batatinhaController: asFunction(batatinhaController),
       batatinhaSerializer: asFunction(batatinhaSerializer),
       getBatatinhaService: asFunction(getBatatinhaService),
+      listBatatinhaService: asFunction(listBatatinhaService),
       routerRegister: asFunction(routerRegister).singleton(),
       getBatatinhaOperation: asFunction(getBatatinhaOperation),
+      listBatatinhaOperation: asFunction(listBatatinhaOperation),
       createBatatinhaService: asFunction(createBatatinhaService),
       updateBatatinhaService: asFunction(updateBatatinhaService),
+      deleteBatatinhaService: asFunction(deleteBatatinhaService),
       providerConnection: asClass(providerConnection).singleton(),
+      createBatatinhaOperation: asFunction(createBatatinhaOperation),
       updateBatatinhaOperation: asFunction(updateBatatinhaOperation),
-      createBatatinhaOperation: asFunction(createBatatinhaOperation)
+      deleteBatatinhaOperation: asFunction(deleteBatatinhaOperation)
     });
 
     return container;

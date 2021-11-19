@@ -93,6 +93,52 @@
 			"response": []
 		},
 		{
+			"name": "List Batatinhas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "batatinha_header",
+						"value": "{{batatinha_header}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/batatinha",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"batatinha"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Update Batatinha",
 			"request": {
 				"method": "PATCH",
@@ -112,6 +158,37 @@
 						}
 					}
 				},
+				"url": {
+					"raw": "{{base_url}}/batatinha/:batatinha_id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"batatinha",
+						":batatinha_id"
+					],
+					"variable": [
+						{
+							"key": "batatinha_id",
+							"value": "{{batatinha_id}}",
+							"description": "\n\n\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Batatinha",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "batatinha_header",
+						"value": "{{batatinha_header}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{base_url}}/batatinha/:batatinha_id",
 					"host": [

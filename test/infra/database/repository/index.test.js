@@ -56,6 +56,64 @@ describe('Repository', () => {
     });
   });
 
+  describe('#list', () => {
+    test('Should return the found batatinha', async () => {
+      const batatinha = generateBatatinhaRequest();
+      const { batatinha_header } = batatinha;
+
+      const repositoryModel = {
+        paginate: () => Promise.resolve({ docs: [batatinha, batatinha] })
+      };
+
+      const repositoryMapper = {
+        toResponse: jest.fn(data => data)
+      };
+
+      const repository = new Repository({ repositoryModel, repositoryMapper });
+
+      const foundBatatinha = await repository.list({ batatinha_header });
+
+      expect(foundBatatinha).toEqual({ docs: [batatinha, batatinha] });
+
+      expect(repositoryMapper.toResponse).toHaveBeenCalledTimes(2);
+      expect(repositoryMapper.toResponse).toHaveBeenCalledWith(batatinha);
+    });
+
+    test('Should return operation exception when paginate throw error', async () => {
+      const batatinha = generateBatatinhaRequest();
+      const { batatinha_header } = batatinha;
+
+      const repositoryModel = {
+        paginate: () => Promise.reject(new Error('any_error'))
+      };
+      const repositoryMapper = {
+        toResponse: jest.fn(data => data)
+      };
+
+      const repository = new Repository({ repositoryModel, repositoryMapper });
+
+      try {
+        await repository.list({ batatinha_header });
+      } catch (error) {
+        expect(error).toBeInstanceOf(OperationException);
+
+        expect(error.code).toStrictEqual('500');
+        expect(error.message).toStrictEqual('Internal Server Error');
+
+        expect(error).toHaveProperty('details');
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0]).toHaveProperty('error_code');
+        expect(error.details[0].error_code).toStrictEqual('Database error');
+
+        expect(error.details[0]).toHaveProperty('error_message');
+        expect(error.details[0].error_message).toStrictEqual('An error occurred while list batatinhas in the database');
+
+        expect(repositoryMapper.toResponse).not.toHaveBeenCalled();
+      }
+    });
+  });
+
   describe('#get', () => {
     test('Should return the found batatinha', async () => {
       const batatinha = generateBatatinhaRequest();
@@ -204,6 +262,52 @@ describe('Repository', () => {
         expect(error.details[0].error_message).toStrictEqual('An error occurred while updating in the database');
 
         expect(repositoryMapper.toResponse).not.toHaveBeenCalled();
+      }
+    });
+  });
+
+  describe('#delete', () => {
+    test('Should return the deleted batatinha', async () => {
+      const batatinha = generateBatatinhaRequest();
+      const { batatinha_header, batatinha_id } = batatinha;
+
+      const repositoryModel = {
+        deleteOne: () => Promise.resolve()
+      };
+
+      const repository = new Repository({ repositoryModel });
+
+      const foundBatatinha = await repository.delete({ batatinha_header, batatinha_id });
+
+      expect(foundBatatinha).toStrictEqual(undefined);
+    });
+
+    test('Should return operation exception when deleteOne throw error', async () => {
+      const batatinha = generateBatatinhaRequest();
+      const { batatinha_header, batatinha_id } = batatinha;
+
+      const repositoryModel = {
+        deleteOne: () => Promise.reject()
+      };
+
+      const repository = new Repository({ repositoryModel });
+
+      try {
+        await repository.delete({ batatinha_header, batatinha_id });
+      } catch (error) {
+        expect(error).toBeInstanceOf(OperationException);
+
+        expect(error.code).toStrictEqual('500');
+        expect(error.message).toStrictEqual('Internal Server Error');
+
+        expect(error).toHaveProperty('details');
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0]).toHaveProperty('error_code');
+        expect(error.details[0].error_code).toStrictEqual('Database error');
+
+        expect(error.details[0]).toHaveProperty('error_message');
+        expect(error.details[0].error_message).toStrictEqual('An error occurred while delete in the database');
       }
     });
   });

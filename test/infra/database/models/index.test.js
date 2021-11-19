@@ -5,7 +5,8 @@ describe('Model', () => {
     const logger = { error: jest.fn(data => data) };
     const collectionName = 'collectionName';
     const schema = {
-      index: jest.fn((fields, unique) => ({ fields, unique }))
+      index: jest.fn((fields, unique) => ({ fields, unique })),
+      plugin: jest.fn()
     };
     const providerConnection = {
       connection: {

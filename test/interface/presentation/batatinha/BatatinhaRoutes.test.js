@@ -5,20 +5,24 @@ describe('BatatinhaRoutes', () => {
     const batatinhaSchema = {
       common: { headers: 'headers' },
       createBatatinha: { body: 'body' },
+      listBatatinha: { query: 'query' },
       getBatatinha: { params: 'params' },
-      updateBatatinha: { params: 'params', body: 'body' }
+      updateBatatinha: { params: 'params', body: 'body' },
+      deleteBatatinha: { params: 'params' },
     };
     const batatinhaController = {
       createBatatinha: 'createBatatinha',
       getBatatinha: 'getBatatinha',
-      updateBatatinha: 'updateBatatinha'
+      listBatatinha: 'listBatatinha',
+      updateBatatinha: 'updateBatatinha',
+      deleteBatatinha: 'deleteBatatinha'
     };
 
     const batatinhaRoutes = BatatinhaRoutes({ batatinhaSchema, batatinhaController });
 
     expect(batatinhaRoutes).toBeInstanceOf(Array);
 
-    const [createBatatinha, getBatatinha, updateBatatinha] = batatinhaRoutes;
+    const [createBatatinha, listBatatinha, getBatatinha, updateBatatinha, deleteBatatinha] = batatinhaRoutes;
 
     expect(createBatatinha.httpMethod).toStrictEqual('post');
     expect(createBatatinha.routePath).toStrictEqual('/');
@@ -27,6 +31,14 @@ describe('BatatinhaRoutes', () => {
       body: batatinhaSchema.createBatatinha.body
     });
     expect(createBatatinha.handler).toStrictEqual(batatinhaController.createBatatinha);
+
+    expect(listBatatinha.httpMethod).toStrictEqual('get');
+    expect(listBatatinha.routePath).toStrictEqual('/');
+    expect(listBatatinha.schemaValidation).toStrictEqual({
+      headers: batatinhaSchema.common.headers,
+      query: batatinhaSchema.listBatatinha.query
+    });
+    expect(listBatatinha.handler).toStrictEqual(batatinhaController.listBatatinha);
 
     expect(getBatatinha.httpMethod).toStrictEqual('get');
     expect(getBatatinha.routePath).toStrictEqual('/:batatinha_id');
@@ -44,5 +56,12 @@ describe('BatatinhaRoutes', () => {
       body: batatinhaSchema.updateBatatinha.body
     });
     expect(updateBatatinha.handler).toStrictEqual(batatinhaController.updateBatatinha);
+
+    expect(deleteBatatinha.httpMethod).toStrictEqual('delete');
+    expect(deleteBatatinha.routePath).toStrictEqual('/:batatinha_id');
+    expect(deleteBatatinha.schemaValidation).toStrictEqual({
+      headers: batatinhaSchema.common.headers,
+      params: batatinhaSchema.deleteBatatinha.params
+    });
   });
 });

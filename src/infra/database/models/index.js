@@ -1,5 +1,7 @@
 'use strict';
 
+var mongoosePaginate = require('mongoose-paginate');
+
 const { OperationException } = require('../../exception');
 
 module.exports = class Model {
@@ -18,6 +20,7 @@ module.exports = class Model {
       schema.index(fields, unique);
     });
 
+    schema.plugin(mongoosePaginate);
     return connection.model(collectionName, schema);
   }
 

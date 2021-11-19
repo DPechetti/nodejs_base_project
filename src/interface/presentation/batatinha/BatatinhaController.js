@@ -4,13 +4,22 @@ module.exports = ({
   batatinhaSerializer,
   createBatatinhaOperation,
   getBatatinhaOperation,
-  updateBatatinhaOperation
+  listBatatinhaOperation,
+  updateBatatinhaOperation,
+  deleteBatatinhaOperation
 }) => ({
   createBatatinha: ControllerMiddleware(async ({ headers, body, res }) => {
     const createdBatatinha = await createBatatinhaOperation.execute({ ...headers, ...body });
     const serializedBatatinha = batatinhaSerializer.serialize(createdBatatinha);
 
     return res.status(201).send(serializedBatatinha);
+  }),
+
+  listBatatinha: ControllerMiddleware(async ({ headers, query, res }) => {
+    const foundBatatinhas = await listBatatinhaOperation.execute({ ...headers, ...query });
+    const serializedBatatinha = batatinhaSerializer.serializeArray(foundBatatinhas);
+
+    return res.status(200).send(serializedBatatinha);
   }),
 
   getBatatinha: ControllerMiddleware(async ({ headers, params, res }) => {
@@ -25,5 +34,11 @@ module.exports = ({
     const serializedBatatinha = batatinhaSerializer.serialize(updatedBatatinha);
 
     return res.status(200).send(serializedBatatinha);
+  }),
+
+  deleteBatatinha: ControllerMiddleware(async ({ headers, params, res }) => {
+    await deleteBatatinhaOperation.execute({ ...headers, ...params });
+
+    return res.status(204).send();
   })
 });

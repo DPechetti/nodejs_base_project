@@ -11,6 +11,15 @@ module.exports = ({ batatinhaSchema, batatinhaController }) => {
     },
     {
       httpMethod: 'get',
+      routePath: '/',
+      schemaValidation: {
+        headers: batatinhaSchema.common.headers,
+        query: batatinhaSchema.listBatatinha.query,
+      },
+      handler: batatinhaController.listBatatinha
+    },
+    {
+      httpMethod: 'get',
       routePath: '/:batatinha_id',
       schemaValidation: {
         headers: batatinhaSchema.common.headers,
@@ -27,6 +36,15 @@ module.exports = ({ batatinhaSchema, batatinhaController }) => {
         body: batatinhaSchema.updateBatatinha.body
       },
       handler: batatinhaController.updateBatatinha
+    },
+    {
+      httpMethod: 'delete',
+      routePath: '/:batatinha_id',
+      schemaValidation: {
+        headers: batatinhaSchema.common.headers,
+        params: batatinhaSchema.deleteBatatinha.params,
+      },
+      handler: batatinhaController.deleteBatatinha
     }
   ];
 };
