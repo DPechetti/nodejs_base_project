@@ -5,6 +5,7 @@ describe('BatatinhaRoutes', () => {
     const batatinhaSchema = {
       common: { headers: 'headers' },
       createBatatinha: { body: 'body' },
+      listBatatinha: { query: 'query' },
       getBatatinha: { params: 'params' },
       updateBatatinha: { params: 'params', body: 'body' },
       deleteBatatinha: { params: 'params' },
@@ -12,6 +13,7 @@ describe('BatatinhaRoutes', () => {
     const batatinhaController = {
       createBatatinha: 'createBatatinha',
       getBatatinha: 'getBatatinha',
+      listBatatinha: 'listBatatinha',
       updateBatatinha: 'updateBatatinha',
       deleteBatatinha: 'deleteBatatinha'
     };
@@ -20,7 +22,7 @@ describe('BatatinhaRoutes', () => {
 
     expect(batatinhaRoutes).toBeInstanceOf(Array);
 
-    const [createBatatinha, getBatatinha, updateBatatinha, deleteBatatinha] = batatinhaRoutes;
+    const [createBatatinha, listBatatinha, getBatatinha, updateBatatinha, deleteBatatinha] = batatinhaRoutes;
 
     expect(createBatatinha.httpMethod).toStrictEqual('post');
     expect(createBatatinha.routePath).toStrictEqual('/');
@@ -29,6 +31,14 @@ describe('BatatinhaRoutes', () => {
       body: batatinhaSchema.createBatatinha.body
     });
     expect(createBatatinha.handler).toStrictEqual(batatinhaController.createBatatinha);
+
+    expect(listBatatinha.httpMethod).toStrictEqual('get');
+    expect(listBatatinha.routePath).toStrictEqual('/');
+    expect(listBatatinha.schemaValidation).toStrictEqual({
+      headers: batatinhaSchema.common.headers,
+      query: batatinhaSchema.listBatatinha.query
+    });
+    expect(listBatatinha.handler).toStrictEqual(batatinhaController.listBatatinha);
 
     expect(getBatatinha.httpMethod).toStrictEqual('get');
     expect(getBatatinha.routePath).toStrictEqual('/:batatinha_id');

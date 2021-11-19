@@ -11,6 +11,15 @@ module.exports = ({ batatinhaSchema, batatinhaController }) => {
     },
     {
       httpMethod: 'get',
+      routePath: '/',
+      schemaValidation: {
+        headers: batatinhaSchema.common.headers,
+        query: batatinhaSchema.listBatatinha.query,
+      },
+      handler: batatinhaController.listBatatinha
+    },
+    {
+      httpMethod: 'get',
       routePath: '/:batatinha_id',
       schemaValidation: {
         headers: batatinhaSchema.common.headers,
