@@ -36,6 +36,96 @@ describe('BatatinhaController', () => {
     });
   });
 
+  describe('#listBatatinha', () => {
+    let batatinha, batatinhaController, headers, query, res, listBatatinhaOperation, batatinhaSerializer;
+
+    beforeEach(() => {
+      batatinha = generateBatatinhaRequest();
+      const { batatinha_header } = batatinha;
+
+      listBatatinhaOperation = { execute: jest.fn(() => Promise.resolve(batatinha)) };
+      batatinhaSerializer = { serializeArray: jest.fn(() => batatinha) };
+      headers = { batatinha_header };
+      query = { page: 1, limit: 10 };
+      res = {
+        status: jest.fn(() => ({ send: () => batatinha }))
+      };
+
+      batatinhaController = BatatinhaController({ listBatatinhaOperation, batatinhaSerializer });
+    });
+
+    test('listBatatinha without query', async () => {
+      const foundBatatinha = await batatinhaController.listBatatinha({ headers, res });
+
+      expect(foundBatatinha).toEqual(batatinha);
+
+      expect(listBatatinhaOperation.execute).toHaveBeenCalledTimes(1);
+      expect(listBatatinhaOperation.execute).toHaveBeenCalledWith({
+        batatinha_header: batatinha.batatinha_header,
+      });
+
+      expect(batatinhaSerializer.serializeArray).toHaveBeenCalledTimes(1);
+      expect(batatinhaSerializer.serializeArray).toHaveBeenCalledWith(batatinha);
+
+      expect(res.status).toHaveBeenCalledTimes(1);
+      expect(res.status).toHaveBeenCalledWith(200);
+    });
+
+    test('listBatatinha with query - page', async () => {
+      const foundBatatinha = await batatinhaController.listBatatinha({ headers, query: { page: query.page }, res });
+
+      expect(foundBatatinha).toEqual(batatinha);
+
+      expect(listBatatinhaOperation.execute).toHaveBeenCalledTimes(1);
+      expect(listBatatinhaOperation.execute).toHaveBeenCalledWith({
+        batatinha_header: batatinha.batatinha_header,
+        page: query.page
+      });
+
+      expect(batatinhaSerializer.serializeArray).toHaveBeenCalledTimes(1);
+      expect(batatinhaSerializer.serializeArray).toHaveBeenCalledWith(batatinha);
+
+      expect(res.status).toHaveBeenCalledTimes(1);
+      expect(res.status).toHaveBeenCalledWith(200);
+    });
+
+    test('listBatatinha with query - limit', async () => {
+      const foundBatatinha = await batatinhaController.listBatatinha({ headers, query: { limit: query.limit }, res });
+
+      expect(foundBatatinha).toEqual(batatinha);
+
+      expect(listBatatinhaOperation.execute).toHaveBeenCalledTimes(1);
+      expect(listBatatinhaOperation.execute).toHaveBeenCalledWith({
+        batatinha_header: batatinha.batatinha_header,
+        limit: query.limit
+      });
+
+      expect(batatinhaSerializer.serializeArray).toHaveBeenCalledTimes(1);
+      expect(batatinhaSerializer.serializeArray).toHaveBeenCalledWith(batatinha);
+
+      expect(res.status).toHaveBeenCalledTimes(1);
+      expect(res.status).toHaveBeenCalledWith(200);
+    });
+
+    test('listBatatinha with query - page & limit', async () => {
+      const foundBatatinha = await batatinhaController.listBatatinha({ headers, query, res });
+
+      expect(foundBatatinha).toEqual(batatinha);
+
+      expect(listBatatinhaOperation.execute).toHaveBeenCalledTimes(1);
+      expect(listBatatinhaOperation.execute).toHaveBeenCalledWith({
+        batatinha_header: batatinha.batatinha_header,
+        ...query
+      });
+
+      expect(batatinhaSerializer.serializeArray).toHaveBeenCalledTimes(1);
+      expect(batatinhaSerializer.serializeArray).toHaveBeenCalledWith(batatinha);
+
+      expect(res.status).toHaveBeenCalledTimes(1);
+      expect(res.status).toHaveBeenCalledWith(200);
+    });
+  });
+
   describe('#getBatatinha', () => {
     let batatinha, batatinhaController, headers, params, res, getBatatinhaOperation, batatinhaSerializer;
 

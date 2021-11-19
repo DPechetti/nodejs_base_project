@@ -4,6 +4,7 @@ module.exports = ({
   batatinhaSerializer,
   createBatatinhaOperation,
   getBatatinhaOperation,
+  listBatatinhaOperation,
   updateBatatinhaOperation,
   deleteBatatinhaOperation
 }) => ({
@@ -12,6 +13,13 @@ module.exports = ({
     const serializedBatatinha = batatinhaSerializer.serialize(createdBatatinha);
 
     return res.status(201).send(serializedBatatinha);
+  }),
+
+  listBatatinha: ControllerMiddleware(async ({ headers, query, res }) => {
+    const foundBatatinhas = await listBatatinhaOperation.execute({ ...headers, ...query });
+    const serializedBatatinha = batatinhaSerializer.serializeArray(foundBatatinhas);
+
+    return res.status(200).send(serializedBatatinha);
   }),
 
   getBatatinha: ControllerMiddleware(async ({ headers, params, res }) => {
