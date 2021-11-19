@@ -188,6 +188,101 @@ describe('BatatinhaSchema', () => {
     });
   });
 
+  describe('#listBatatinha', () => {
+    describe('#query', () => {
+      let data, query;
+
+      beforeEach(() => {
+        data = {
+          page: '1',
+          limit: '10'
+        };
+
+        query = BatatinhaSchema().listBatatinha.query;
+      });
+
+      test('Should return the validated object when all arguments are passed', () => {
+        const { error } = query.validate(data);
+
+        expect(error).toStrictEqual(undefined);
+      });
+
+      test('Should return the validated object when only page is passed', () => {
+        const { error } = query.validate({ page: data.page });
+
+        expect(error).toStrictEqual(undefined);
+      });
+
+      test('Should return the validated object when only limit is passed', () => {
+        const { error } = query.validate({ limit: data.limit });
+
+        expect(error).toStrictEqual(undefined);
+      });
+
+      test('Should return the validated object when arguments are not passed', () => {
+        const { error } = query.validate();
+
+        expect(error).toStrictEqual(undefined);
+      });
+
+      test('Should return error whe page id is empty', () => {
+        const { error } = query.validate({ page: '' });
+
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toStrictEqual('"page" is not allowed to be empty');
+
+        expect(error.details).toBeInstanceOf(Array);
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0].path).toBeInstanceOf(Array);
+        expect(error.details[0].path[0]).toStrictEqual('page');
+        expect(error.details[0].message).toStrictEqual('"page" is not allowed to be empty');
+      });
+
+      test('Should return error whe limit id is empty', () => {
+        const { error } = query.validate({ limit: '' });
+
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toStrictEqual('"limit" is not allowed to be empty');
+
+        expect(error.details).toBeInstanceOf(Array);
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0].path).toBeInstanceOf(Array);
+        expect(error.details[0].path[0]).toStrictEqual('limit');
+        expect(error.details[0].message).toStrictEqual('"limit" is not allowed to be empty');
+      });
+
+      test('Should return error whe page id is invalid', () => {
+        const { error } = query.validate({ page: 'string' });
+
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toStrictEqual('"page" with value "string" fails to match the required pattern: /^[0-9]*$/');
+
+        expect(error.details).toBeInstanceOf(Array);
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0].path).toBeInstanceOf(Array);
+        expect(error.details[0].path[0]).toStrictEqual('page');
+        expect(error.details[0].message).toStrictEqual('"page" with value "string" fails to match the required pattern: /^[0-9]*$/');
+      });
+
+      test('Should return error whe limit id is invalid', () => {
+        const { error } = query.validate({ limit: 'string' });
+
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toStrictEqual('"limit" with value "string" fails to match the required pattern: /^[0-9]*$/');
+
+        expect(error.details).toBeInstanceOf(Array);
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0].path).toBeInstanceOf(Array);
+        expect(error.details[0].path[0]).toStrictEqual('limit');
+        expect(error.details[0].message).toStrictEqual('"limit" with value "string" fails to match the required pattern: /^[0-9]*$/');
+      });
+    });
+  });
+
   describe('#getBatatinha', () => {
     describe('#params', () => {
       let data, params;

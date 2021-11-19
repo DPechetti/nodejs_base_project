@@ -14,6 +14,13 @@ module.exports = () => ({
     })
   },
 
+  listBatatinha: {
+    query: joi.object({
+      page: joi.string().regex(/^[0-9]*$/),
+      limit: joi.string().regex(/^[0-9]*$/)
+    })
+  },
+
   getBatatinha: {
     params: joi.object({
       batatinha_id: joi.string().guid({ version: 'uuidv4' }).required()
@@ -37,3 +44,5 @@ module.exports = () => ({
     })
   }
 });
+
+
