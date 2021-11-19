@@ -16,6 +16,18 @@ module.exports = class Repository {
     }
   }
 
+  async list(query, options) {
+    try {
+      const response = await this.repositoryModel.paginate(query, options);
+
+      response.docs = response.docs.map(document => this.repositoryMapper.toResponse(document));
+
+      return response;
+    } catch (error) {
+      throw new OperationException(_databaseError('An error occurred while list batatinhas in the database'));
+    }
+  }
+
   async get(params) {
     try {
       const response = await this.repositoryModel.findOne(params);
