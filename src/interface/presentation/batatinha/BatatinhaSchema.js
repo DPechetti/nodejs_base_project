@@ -1,4 +1,5 @@
 const joi = require('joi');
+const maxNumber = 9999;
 
 module.exports = () => ({
   common: {
@@ -16,8 +17,8 @@ module.exports = () => ({
 
   listBatatinha: {
     query: joi.object({
-      page: joi.string().regex(/^[0-9]*$/),
-      limit: joi.string().regex(/^[0-9]*$/)
+      page: joi.number().min(1).max(maxNumber),
+      limit: joi.number().min(1).max(maxNumber)
     })
   },
 
