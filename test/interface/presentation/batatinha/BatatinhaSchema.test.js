@@ -225,60 +225,88 @@ describe('BatatinhaSchema', () => {
         expect(error).toStrictEqual(undefined);
       });
 
-      test('Should return error whe page id is empty', () => {
-        const { error } = query.validate({ page: '' });
-
-        expect(error).toBeInstanceOf(Error);
-        expect(error.message).toStrictEqual('"page" is not allowed to be empty');
-
-        expect(error.details).toBeInstanceOf(Array);
-        expect(error.details).toHaveLength(1);
-
-        expect(error.details[0].path).toBeInstanceOf(Array);
-        expect(error.details[0].path[0]).toStrictEqual('page');
-        expect(error.details[0].message).toStrictEqual('"page" is not allowed to be empty');
-      });
-
-      test('Should return error whe limit id is empty', () => {
-        const { error } = query.validate({ limit: '' });
-
-        expect(error).toBeInstanceOf(Error);
-        expect(error.message).toStrictEqual('"limit" is not allowed to be empty');
-
-        expect(error.details).toBeInstanceOf(Array);
-        expect(error.details).toHaveLength(1);
-
-        expect(error.details[0].path).toBeInstanceOf(Array);
-        expect(error.details[0].path[0]).toStrictEqual('limit');
-        expect(error.details[0].message).toStrictEqual('"limit" is not allowed to be empty');
-      });
-
-      test('Should return error whe page id is invalid', () => {
+      test('Should return error whe page is invalid', () => {
         const { error } = query.validate({ page: 'string' });
 
         expect(error).toBeInstanceOf(Error);
-        expect(error.message).toStrictEqual('"page" with value "string" fails to match the required pattern: /^[0-9]*$/');
+        expect(error.message).toStrictEqual('"page" must be a number');
 
         expect(error.details).toBeInstanceOf(Array);
         expect(error.details).toHaveLength(1);
 
         expect(error.details[0].path).toBeInstanceOf(Array);
         expect(error.details[0].path[0]).toStrictEqual('page');
-        expect(error.details[0].message).toStrictEqual('"page" with value "string" fails to match the required pattern: /^[0-9]*$/');
+        expect(error.details[0].message).toStrictEqual('"page" must be a number');
       });
 
-      test('Should return error whe limit id is invalid', () => {
+      test('Should return error when the page is less than 1', () => {
+        const { error } = query.validate({ page: 0 });
+
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toStrictEqual('"page" must be greater than or equal to 1');
+
+        expect(error.details).toBeInstanceOf(Array);
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0].path).toBeInstanceOf(Array);
+        expect(error.details[0].path[0]).toStrictEqual('page');
+        expect(error.details[0].message).toStrictEqual('"page" must be greater than or equal to 1');
+      });
+
+      test('Should return error when the page is more than 9999', () => {
+        const { error } = query.validate({ page: 99999 });
+
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toStrictEqual('"page" must be less than or equal to 9999');
+
+        expect(error.details).toBeInstanceOf(Array);
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0].path).toBeInstanceOf(Array);
+        expect(error.details[0].path[0]).toStrictEqual('page');
+        expect(error.details[0].message).toStrictEqual('"page" must be less than or equal to 9999');
+      });
+
+      test('Should return error whe limit is invalid', () => {
         const { error } = query.validate({ limit: 'string' });
 
         expect(error).toBeInstanceOf(Error);
-        expect(error.message).toStrictEqual('"limit" with value "string" fails to match the required pattern: /^[0-9]*$/');
+        expect(error.message).toStrictEqual('"limit" must be a number');
 
         expect(error.details).toBeInstanceOf(Array);
         expect(error.details).toHaveLength(1);
 
         expect(error.details[0].path).toBeInstanceOf(Array);
         expect(error.details[0].path[0]).toStrictEqual('limit');
-        expect(error.details[0].message).toStrictEqual('"limit" with value "string" fails to match the required pattern: /^[0-9]*$/');
+        expect(error.details[0].message).toStrictEqual('"limit" must be a number');
+      });
+
+      test('Should return error when the limit is less than 1', () => {
+        const { error } = query.validate({ limit: 0 });
+
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toStrictEqual('"limit" must be greater than or equal to 1');
+
+        expect(error.details).toBeInstanceOf(Array);
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0].path).toBeInstanceOf(Array);
+        expect(error.details[0].path[0]).toStrictEqual('limit');
+        expect(error.details[0].message).toStrictEqual('"limit" must be greater than or equal to 1');
+      });
+
+      test('Should return error when the limit is more than 9999', () => {
+        const { error } = query.validate({ limit: 99999 });
+
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toStrictEqual('"limit" must be less than or equal to 9999');
+
+        expect(error.details).toBeInstanceOf(Array);
+        expect(error.details).toHaveLength(1);
+
+        expect(error.details[0].path).toBeInstanceOf(Array);
+        expect(error.details[0].path[0]).toStrictEqual('limit');
+        expect(error.details[0].message).toStrictEqual('"limit" must be less than or equal to 9999');
       });
     });
   });
