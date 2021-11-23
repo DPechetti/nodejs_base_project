@@ -7,6 +7,7 @@ describe('DeleteBatatinhaService', () => {
     const { batatinha_header, batatinha_id } = batatinha;
 
     const batatinhaRepository = {
+      get: () => Promise.resolve(batatinha),
       delete: () => Promise.resolve()
     };
 
